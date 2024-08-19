@@ -53,7 +53,8 @@ done
 log_message "Language selected: $lang"
 
 # Github Version API
-VERSION=$(curl -s "https://api.github.com/repos/celestiaorg/celestia-node/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+#VERSION=$(curl -s "https://api.github.com/repos/celestiaorg/celestia-node/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+VERSION="v0.14.1"
 
 # Check if VERSION is empty
 if [ -z "$VERSION" ]; then
@@ -137,7 +138,7 @@ install_dependencies() {
         echo -e "${YELLOW}Installation des mises à jour système et des dépendances...${NORMAL} (Cela peut prendre quelques minutes)"
     fi
     sudo apt update -y >/dev/null 2>&1 && sudo apt upgrade -y >/dev/null 2>&1
-    sudo apt-get install -y curl tar wget aria2 clang pkg-config libssl-dev jq build-essential git make ncdu screen >/dev/null 2>&1
+    # sudo apt-get install -y curl tar wget aria2 clang pkg-config libssl-dev jq build-essential git make ncdu screen >/dev/null 2>&1
     if [ "$lang" == "EN" ]; then
         echo -e "${GREEN}System Updates and Dependencies installed successfully.${NORMAL}"
     elif [ "$lang" == "TR" ]; then
@@ -205,7 +206,7 @@ setup_celestia_node() {
     fi
     export NETWORK=celestia
     export NODE_TYPE=light
-    export RPC_URL=http://public-celestia-consensus.numia.xyz
+    export RPC_URL=celestia-mainnet-consensus.itrocket.net
 
     cd $HOME
     mkdir -p my-node-store
